@@ -4,34 +4,23 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private float omega;
-   
-    private float delta;
+    private float W = 0.0f;
+    private float L = 10.0f;
+    private float Betta = 0.0f;
 
-    public float amp = 0.0f; //величина размаха
-    public float g = 9.8f;
-    //public float speed = 0.0f;
-    //public float massa = 0.0f;
-    public float startLocation = 0.0f;
-    public float L = 0.0f; //длина нити
+    public float Vel = 2.0f;
+    public float Alpha = 0.5f;
 
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-
-        omega = Mathf.Sqrt(g/ L);
-
-        delta = Mathf.Asin(startLocation);
-
-        transform.position = new Vector3(Mathf.Sin(delta) * amp, 0, 0);
+        W = Mathf.Sqrt(9.8f / L);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Mathf.Sin(Time.time * omega + delta) * amp, 0, 0);
+        Betta = Mathf.Sin(Time.time * W + Mathf.Atan(Alpha * W / Vel)) * Mathf.Sqrt(Mathf.Pow(Alpha, 2) * (Mathf.Pow(Vel, 2) / Mathf.Pow(W, 2)));
+        transform.position = new Vector3(L * Mathf.Sin(Betta), L - L * Mathf.Cos(Betta), 0);
     }
 }
